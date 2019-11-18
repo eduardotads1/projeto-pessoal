@@ -6,23 +6,22 @@ import br.com.pessoal.MyProject.modelo.Topico;
 import br.com.pessoal.MyProject.repository.TopicosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
 
 @RestController
+@RequestMapping("topicos")
 public class TopicosController {
 
     @Autowired
     TopicosRepository topicosRepository;
 
-    @RequestMapping("/topicos")
-    public List<TopicosDto> lista(String nomeCurso){
-        if(nomeCurso != null){
-            List<Topico> topicos = topicosRepository.findByCursoNome(nomeCurso);
+    @GetMapping()
+    public List<TopicosDto> lista(@RequestParam(value="id", required = false) String titulo){
+        if(titulo != null){
+            List<Topico> topicos = topicosRepository.findByTitulo(titulo);
             return TopicosDto.converter(topicos);
         }else{
             List<Topico> topicos = topicosRepository.findAll();
@@ -30,5 +29,6 @@ public class TopicosController {
         }
 
     }
+
 }
 
