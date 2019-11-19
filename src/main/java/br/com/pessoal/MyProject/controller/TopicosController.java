@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.List;
 
+@CrossOrigin
 @RestController
-@RequestMapping("topicos")
+@RequestMapping("/topicos")
 public class TopicosController {
 
     @Autowired
@@ -27,7 +28,6 @@ public class TopicosController {
             List<Topico> topicos = topicosRepository.findAll();
             return TopicosDto.converter(topicos);
         }
-
     }
 
 }
